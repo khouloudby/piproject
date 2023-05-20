@@ -20,7 +20,7 @@ import java.util.logging.Logger;
     private Connection cnx;
     
     private static DataSource instance;
-    private final String URL = "jdbc:mysql://localhost:3306/piproject";
+    private final String URL = "jdbc:mysql://localhost:3306/projet pi";
     private final String USERNAME = "root";
     private final String PASSWORD = "";
 
