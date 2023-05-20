@@ -4,100 +4,99 @@
  */
 package com.esprit.services;
 
-import com.esprit.entities.Historique;
+import com.esprit.entities.Association;
 import com.esprit.utils.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author khoul
  */
+
     
-    public class ServiceHistorique implements IService<Historique> {
         
-        private Connection cnx = DataSource.getInstance().getCnx();
+    public class ServiceAssociation implements IService<Association > {
+        
+    private Connection cnx = DataSource.getInstance().getCnx();
         
    
       
-    public void ajouter(Historique h) {
+    @Override
+    public void ajouter(Association a) {
         try {
-            String req = "insert into Historique (imc,date,idAdherant) VALUES (?,?,?);";
+            String req = "insert into Association(idAdherant,idHistorique) VALUES (?,?);";
             PreparedStatement pst = cnx.prepareStatement(req);
-            pst.setFloat(1,h.getImc());
-            pst.setDate(2, h.getDate());
-            pst.setInt(3,h.getIdAdherant());
+            pst.setInt(1,a.getIdAdherant());
+            pst.setInt(2,a.getIdHistorique());
             pst.executeUpdate();
-            System.out.println("Historique ajouté !");
+            System.out.println("Association ajoutée !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());  
         }
     }
 
-  
     
-        
-     public void modifier(Historique h) {
-        try {
-            String req = "UPDATE Historique SET imc=?, date=?,idAdherant=? WHERE id=?";
-            PreparedStatement pst = cnx.prepareStatement(req);
-            pst.setInt(4, h.getIdHistorique());
-            pst.setFloat(1, h.getImc());
-            pst.setDate(2,  h.getDate());
-            pst.setInt(3, h.getIdAdherant());
            
+        @Override
+     public void modifier(Association a) {
+        try {
+            String req = "UPDATE Association SET idAdherant=?, idHistorique=?WHERE idAssociation=?";
+            PreparedStatement pst = cnx.prepareStatement(req);
+             pst.setInt(1, a.getIdAdherant());
+            pst.setInt(2, a.getIdHistorique());
             pst.executeUpdate();
-            System.out.println("historique modifié!");
+            System.out.println("Association modifiée!");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
-    
-
-
-    public void supprimer(Historique h) {
+     
+     
+    @Override
+        public void supprimer(Association a) {
    
         try {
-            String req = "DELETE from Historique WHERE id=?";
+            String req = "DELETE from Association WHERE idAssociation=?";
             PreparedStatement pst = cnx.prepareStatement(req);
-            pst.setInt(1, h.getIdHistorique());
             pst.executeUpdate();
-            System.out.println("historique supprimée !");
+            System.out.println("association supprimée !");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    
-
- 
-    public List<Historique> afficher() {
+     @Override
+     public List<Association> afficher() {
        
-        List<Historique> list = new ArrayList<>();
+        List<Association> list = new ArrayList<>();
         
-        String req = "SELECT * FROM Historique";
+        String req = "SELECT * FROM Association";
         try {
             PreparedStatement pst = cnx.prepareStatement(req);
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
-                list.add(new Historique(rs.getInt("idHistorique"),rs.getFloat("imc"),rs.getDate("date"),rs.getInt("idadherant")));
+                list.add(new Association(rs.getInt("idAdherant"),rs.getInt("idHistorique")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
       
-        return list;   
+     return list ; 
     }
-
+     
+     
+     
+     
+     
+        
     }
+     
+     
+     
     
-        
-
-        
-        
-

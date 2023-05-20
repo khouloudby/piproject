@@ -14,15 +14,15 @@ import java.sql.Date;
  */
 public class Historique {
     
-    private int id;
+    private int idHistorique;
     private float  imc; 
-     private Date date;
+    private Date date;
     private int  idAdherant ; 
 
-    public Historique(int id, Date date, float imc, int idAdherant) {
-        this.id = id;
-        this.date = date;
+    public Historique(int idHistorique, float imc, Date date, int idAdherant) {
+        this.idHistorique = idHistorique;
         this.imc = imc;
+        this.date = date;
         this.idAdherant = idAdherant;
     }
 
@@ -32,21 +32,12 @@ public class Historique {
         this.idAdherant = idAdherant;
     }
 
-    
-    public int getId() {
-        return id;
+    public int getIdHistorique() {
+        return idHistorique;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setIdHistorique(int idHistorique) {
+        this.idHistorique = idHistorique;
     }
 
     public float getImc() {
@@ -55,6 +46,14 @@ public class Historique {
 
     public void setImc(float imc) {
         this.imc = imc;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getIdAdherant() {
@@ -67,15 +66,15 @@ public class Historique {
 
     @Override
     public String toString() {
-        return "Historique{" + "id=" + id + ", date=" + date + ", imc=" + imc + ", idAdherant=" + idAdherant + '}';
+        return "Historique{" + "idHistorique=" + idHistorique + ", imc=" + imc + ", date=" + date + ", idAdherant=" + idAdherant + '}';
     }
 
-   
 
-    
-
-    
-    
-    
-    
 }
+  
+
+    
+   
+    
+    
+
